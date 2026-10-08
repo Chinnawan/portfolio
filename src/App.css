@@ -1,0 +1,73 @@
+/* ===== Shared helpers ===== */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+}
+
+.section {
+  padding: clamp(96px, 14vw, 180px) var(--gutter);
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+html:lang(th) .eyebrow {
+  letter-spacing: 0.05em;
+}
+
+/* Pill buttons, like Apple's "Buy" / "Learn more" */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.3s var(--ease-apple), background-color 0.3s, opacity 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.04);
+}
+
+.btn--solid {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.btn--outline {
+  border: 1px solid var(--line);
+  background: transparent;
+}
+
+.btn--outline:hover {
+  background: var(--surface);
+}
+
+/* Brand logo rendered as an <img> or as a currentColor mask */
+.icon {
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+  object-fit: contain;
+}
+
+.icon--mask {
+  display: inline-block;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+  background: var(--icon-color, currentColor);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

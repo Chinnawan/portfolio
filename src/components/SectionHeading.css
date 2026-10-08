@@ -1,0 +1,30 @@
+.section-heading {
+  margin-bottom: clamp(56px, 8vw, 96px);
+}
+
+.section-heading__title {
+  margin-top: 12px;
+  font-size: clamp(56px, 10vw, 128px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: var(--headline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em; /* keeps descenders inside the gradient */
+}
+
+html:lang(th) .section-heading__title {
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.section-heading__lead {
+  margin-top: 20px;
+  max-width: 640px;
+  font-size: clamp(19px, 2vw, 24px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-2);
+}

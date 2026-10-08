@@ -1,0 +1,16 @@
+.about__inner {
+  max-width: 980px;
+}
+
+.about__text {
+  margin-top: 32px;
+  font-size: clamp(24px, 3.2vw, 44px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+html:lang(th) .about__text {
+  line-height: 1.55;
+  letter-spacing: 0;
+}

@@ -1,0 +1,238 @@
+.projects__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 64px);
+}
+
+/* ===== Card ===== */
+.project-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: box-shadow 0.5s;
+}
+
+.project-card:hover {
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.45);
+}
+
+.project-card__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 520px;
+  overflow: hidden;
+  background: #050505;
+}
+
+.project-card__glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  transition: opacity 0.7s;
+}
+
+.project-card:hover .project-card__glow {
+  opacity: 0.7;
+}
+
+.project-card__mock {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding-block: 40px;
+  transition: scale 0.7s var(--ease-apple);
+}
+
+.project-card:hover .project-card__mock {
+  scale: 1.04;
+}
+
+.project-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: clamp(32px, 4vw, 52px);
+}
+
+.project-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.project-card__index {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--text);
+}
+
+.project-card__rule {
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+}
+
+.project-card__title {
+  margin-bottom: 20px;
+  font-size: clamp(36px, 4.4vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+html:lang(th) .project-card__title {
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.project-card__desc {
+  max-width: 440px;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.project-card__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.project-card__stack li {
+  padding: 5px 14px;
+  border-radius: 980px;
+  background: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.project-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.project-card .arrow {
+  transition: transform 0.3s var(--ease-apple);
+}
+
+.project-card .btn:hover .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ===== Mockups ===== */
+.mock-line {
+  height: 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mock-line--dim {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mock-web {
+  width: 85%;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #171717;
+  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.7);
+}
+
+.mock-web__bar {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mock-web__bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mock-web__body {
+  padding: 20px;
+}
+
+.mock-web__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.mock-web__cta {
+  width: 64px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.mock-web__slots {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.mock-web__slots div {
+  height: 24px;
+  border-radius: 6px;
+}
+
+.mock-phone {
+  width: 38%;
+  min-width: 150px;
+  height: 88%;
+  padding: 12px;
+  border-radius: 32px;
+  border: 4px solid #262626;
+  background: #171717;
+  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.7);
+}
+
+.mock-phone__notch {
+  width: 48px;
+  height: 6px;
+  margin: 0 auto 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mock-phone__card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mock-phone__img {
+  height: 48px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .project-card {
+    grid-template-columns: 1fr;
+  }
+  .project-card__visual {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+}

@@ -1,0 +1,132 @@
+.timeline-wrap {
+  max-width: 1000px;
+}
+
+.timeline {
+  --rail: 30%;
+  position: relative;
+}
+
+.timeline__track,
+.timeline__progress {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: calc(var(--rail) + 7px);
+  width: 1px;
+}
+
+.timeline__track {
+  background: var(--line);
+}
+
+.timeline__progress {
+  background: var(--text);
+  transform-origin: top;
+}
+
+.timeline__list {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--rail) 1fr;
+}
+
+.timeline__dot {
+  position: absolute;
+  top: 6px;
+  left: var(--rail);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--text);
+  background: var(--bg);
+}
+
+.timeline__side {
+  padding-right: 48px;
+  text-align: right;
+}
+
+.timeline__kind {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+html:lang(th) .timeline__kind {
+  letter-spacing: 0.05em;
+}
+
+.timeline__period {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.timeline__body {
+  padding-left: 48px;
+}
+
+.timeline__body h3 {
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+html:lang(th) .timeline__body h3 {
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.timeline__place {
+  margin-top: 8px;
+  color: var(--text-2);
+}
+
+.timeline__points {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.timeline__points li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.timeline__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+@media (max-width: 760px) {
+  .timeline {
+    --rail: 0px;
+  }
+  .timeline__item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-left: 40px;
+  }
+  .timeline__side,
+  .timeline__body {
+    padding: 0;
+    text-align: left;
+  }
+}

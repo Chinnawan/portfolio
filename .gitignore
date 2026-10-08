@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# production build
+/build
+
+# reference material (not part of the site)
+/promp
+/IMG_1892.JPG
+/ปกพอร์ด.png
+/logo skill.png
+
+# misc
+.DS_Store
+npm-debug.log*
