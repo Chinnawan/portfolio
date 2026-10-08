@@ -21,6 +21,7 @@
 }
 
 html:lang(th) .contact__title {
+  font-size: clamp(2.4rem, 8vw, 7.5rem);
   font-weight: 700;
   line-height: 1.15;
 }

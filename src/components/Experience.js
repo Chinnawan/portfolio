@@ -26,7 +26,7 @@ export default function Experience() {
 
           <ol className="timeline__list">
             {timeline.map((item, i) => (
-              <Reveal as="li" key={item.title.en} delay={0.05 * i} className="timeline__item">
+              <Reveal as="li" key={item.title} delay={0.05 * i} className="timeline__item">
                 <span className="timeline__dot" />
                 <div className="timeline__side">
                   <p className="timeline__kind">{t(item.kind)}</p>

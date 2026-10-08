@@ -31,7 +31,7 @@ export default function Skills() {
 
         <div className="skills__grid">
           {skillGroups.map((group, i) => (
-            <Reveal key={group.title.en} delay={(i % 3) * 0.1} className="skills__tile">
+            <Reveal key={group.title} delay={(i % 3) * 0.1} className="skills__tile">
               <div className="skills__tile-head">
                 <h3>{t(group.title)}</h3>
                 <span>{String(i + 1).padStart(2, "0")}</span>

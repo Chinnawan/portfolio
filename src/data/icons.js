@@ -1,5 +1,5 @@
 import React from "react";
-// Brand logos (colored SVGs from devicon + simple-icons, bundled by Vite)
+// Brand logos (colored SVGs from devicon + simple-icons, bundled by react-scripts)
 import python from "devicon/icons/python/python-original.svg";
 import cpp from "devicon/icons/cplusplus/cplusplus-original.svg";
 import java from "devicon/icons/java/java-original.svg";
@@ -27,6 +27,30 @@ import linkedin from "devicon/icons/linkedin/linkedin-plain.svg";
 import linkedinColor from "devicon/icons/linkedin/linkedin-original.svg";
 import espressif from "simple-icons/icons/espressif.svg";
 import gmail from "simple-icons/icons/gmail.svg";
+// Single-color logos for project tech stacks (follow the theme's text color)
+import monoNext from "simple-icons/icons/nextdotjs.svg";
+import monoReact from "simple-icons/icons/react.svg";
+import monoTypescript from "simple-icons/icons/typescript.svg";
+import monoTailwind from "simple-icons/icons/tailwindcss.svg";
+import monoFirebase from "simple-icons/icons/firebase.svg";
+import monoDocker from "simple-icons/icons/docker.svg";
+import monoFlutter from "simple-icons/icons/flutter.svg";
+import monoDart from "simple-icons/icons/dart.svg";
+// Project screenshots
+import courthub from "../assets/courthub.png";
+
+export const stackIcons = {
+  nextjs: { src: monoNext, mono: true },
+  react: { src: monoReact, mono: true },
+  typescript: { src: monoTypescript, mono: true },
+  tailwind: { src: monoTailwind, mono: true },
+  firebase: { src: monoFirebase, mono: true },
+  docker: { src: monoDocker, mono: true },
+  flutter: { src: monoFlutter, mono: true },
+  dart: { src: monoDart, mono: true },
+};
+
+export const screenshots = { courthub };
 
 export const icons = {
   python: { src: python },

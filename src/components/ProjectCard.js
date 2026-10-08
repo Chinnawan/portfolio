@@ -1,37 +1,43 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { appleEase } from "./Reveal";
+import Icon from "./Icon";
 import { useLang } from "../context/LanguageContext";
 import { ui } from "../data/portfolio";
+import { stackIcons, screenshots } from "../data/icons";
 
-// Simple illustrated mockups (swap for real screenshots later)
-function WebMock({ accent }) {
-  const slots = [1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1];
+// MacBook-style laptop showing a real screenshot inside a browser window.
+// The screen "opens" (tilts up) as the card scrolls into view, like Apple's pages.
+function LaptopMock({ src, url, alt, tilt }) {
   return (
-    <div className="mock-web">
-      <div className="mock-web__bar">
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="mock-web__body">
-        <div className="mock-web__head">
-          <div className="mock-line" style={{ width: 112 }} />
-          <div className="mock-web__cta" style={{ background: accent }} />
+    <div className="laptop">
+      <motion.div className="laptop__lid" style={{ rotateX: tilt }}>
+        <div className="laptop__screen">
+          <div className="laptop__camera" />
+          <div className="browser">
+            <div className="browser__bar">
+              <span className="browser__dots">
+                <i />
+                <i />
+                <i />
+              </span>
+              <span className="browser__url">
+                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2a5 5 0 0 0-5 5v3H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z" />
+                </svg>
+                {url}
+              </span>
+            </div>
+            <img src={src} alt={alt} className="browser__shot" />
+          </div>
         </div>
-        <div className="mock-web__slots">
-          {slots.map((free, i) => (
-            <div
-              key={i}
-              style={{ background: free ? `${accent}cc` : "rgba(255,255,255,0.08)" }}
-            />
-          ))}
-        </div>
-      </div>
+      </motion.div>
+      <div className="laptop__base" />
     </div>
   );
 }
 
+// Simple illustrated phone mockup (swap for a real screenshot later)
 function MobileMock({ accent }) {
   return (
     <div className="mock-phone">
@@ -59,6 +65,10 @@ function ArrowIcon() {
   );
 }
 
+// Open real links in a new tab; "#" placeholders stay on the page
+const linkProps = (href) =>
+  href && href !== "#" ? { href, target: "_blank", rel: "noreferrer" } : { href: "#" };
+
 export default function ProjectCard({ project }) {
   const { t } = useLang();
   const ref = useRef(null);
@@ -69,6 +79,7 @@ export default function ProjectCard({ project }) {
   });
   const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
   const visualY = useTransform(scrollYProgress, [0, 1], [80, 0]);
+  const tilt = useTransform(scrollYProgress, [0, 1], [-55, 0]);
 
   return (
     <motion.article
@@ -86,8 +97,13 @@ export default function ProjectCard({ project }) {
           style={{ background: `radial-gradient(circle at 50% 110%, ${project.accent}, transparent 60%)` }}
         />
         <motion.div className="project-card__mock" style={{ y: visualY }}>
-          {project.mock === "web" ? (
-            <WebMock accent={project.accent} />
+          {project.mock === "browser" ? (
+            <LaptopMock
+              src={screenshots[project.screenshot]}
+              url={project.url}
+              alt={`${t(project.title)} preview`}
+              tilt={tilt}
+            />
           ) : (
             <MobileMock accent={project.accent} />
           )}
@@ -108,14 +124,17 @@ export default function ProjectCard({ project }) {
         <div>
           <ul className="project-card__stack">
             {project.stack.map((tech) => (
-              <li key={tech}>{tech}</li>
+              <li key={tech.name}>
+                <Icon icon={stackIcons[tech.icon]} size={14} />
+                {tech.name}
+              </li>
             ))}
           </ul>
           <div className="project-card__links">
-            <a href={project.demo} className="btn btn--solid">
+            <a {...linkProps(project.demo)} className="btn btn--solid">
               {t(ui.projects.demo)} <ArrowIcon />
             </a>
-            <a href={project.github} className="btn btn--outline">
+            <a {...linkProps(project.github)} className="btn btn--outline">
               GitHub <ArrowIcon />
             </a>
           </div>

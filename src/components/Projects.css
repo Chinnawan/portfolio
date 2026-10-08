@@ -112,6 +112,9 @@ html:lang(th) .project-card__title {
 }
 
 .project-card__stack li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   padding: 5px 14px;
   border-radius: 980px;
   background: var(--bg);
@@ -144,55 +147,113 @@ html:lang(th) .project-card__title {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.mock-web {
-  width: 85%;
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #171717;
-  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.7);
+/* Laptop + browser mockup with a real screenshot */
+.laptop {
+  width: 88%;
+  perspective: 1600px;
 }
 
-.mock-web__bar {
-  display: flex;
-  gap: 6px;
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.laptop__lid {
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
 }
 
-.mock-web__bar span {
-  width: 10px;
-  height: 10px;
+.laptop__screen {
+  position: relative;
+  padding: 2.2% 2.2% 2.6%;
+  border-radius: 18px 18px 6px 6px;
+  background: #0d0d0d;
+  box-shadow: 0 0 0 1.5px #3a3a3c, 0 40px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+.laptop__camera {
+  position: absolute;
+  top: 0.9%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: #262626;
+  transform: translateX(-50%);
 }
 
-.mock-web__body {
-  padding: 20px;
+.laptop__base {
+  position: relative;
+  width: 112%;
+  height: 14px;
+  margin-left: -6%;
+  border-radius: 2px 2px 14px 14px;
+  background: linear-gradient(180deg, #d4d4d8 0%, #8e8e93 55%, #3a3a3c 100%);
 }
 
-.mock-web__head {
+/* the thumb notch on the base */
+.laptop__base::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 16%;
+  height: 5px;
+  border-radius: 0 0 8px 8px;
+  background: #6e6e73;
+  transform: translateX(-50%);
+}
+
+.browser {
+  overflow: hidden;
+  border-radius: 6px;
+  background: #1c1c1e;
+}
+
+.browser__bar {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  height: 26px;
+  padding-inline: 10px;
+  background: #2c2c2e;
 }
 
-.mock-web__cta {
-  width: 64px;
-  height: 24px;
+.browser__dots {
+  display: flex;
+  gap: 5px;
+}
+
+.browser__dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+.browser__dots i:nth-child(2) {
+  background: #febc2e;
+}
+.browser__dots i:nth-child(3) {
+  background: #28c840;
+}
+
+.browser__url {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 60%;
+  padding: 3px 14px;
   border-radius: 6px;
+  background: #1c1c1e;
+  color: #a1a1a6;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateX(-50%);
 }
 
-.mock-web__slots {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-}
-
-.mock-web__slots div {
-  height: 24px;
-  border-radius: 6px;
+.browser__shot {
+  width: 100%;
+  aspect-ratio: 16 / 9.1;
+  object-fit: cover;
+  object-position: top;
 }
 
 .mock-phone {
