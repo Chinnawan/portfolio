@@ -37,21 +37,23 @@ function LaptopMock({ src, url, alt, tilt }) {
   );
 }
 
-// Simple illustrated phone mockup (swap for a real screenshot later)
-function MobileMock({ accent }) {
+// Phone showing a real app screenshot. It's taller than the visual area, so only
+// the top ~60% shows — the phone fills the column instead of floating small.
+function PhoneMock({ src, alt }) {
   return (
-    <div className="mock-phone">
-      <div className="mock-phone__notch" />
-      <div className="mock-line" style={{ width: 80, marginBottom: 12 }} />
-      {[0, 1, 2].map((i) => (
-        <div key={i} className="mock-phone__card">
-          <div
-            className="mock-phone__img"
-            style={{ background: i === 0 ? accent : "rgba(255,255,255,0.1)" }}
-          />
-          <div className="mock-line" style={{ width: "75%", marginBottom: 4 }} />
-          <div className="mock-line mock-line--dim" style={{ width: "50%" }} />
-        </div>
+    <div className="phone">
+      <div className="phone__island" />
+      <img src={src} alt={alt} className="phone__shot" />
+    </div>
+  );
+}
+
+// Hardware projects: one big photo on the left, two stacked on the right
+function PhotoGrid({ photos, alt }) {
+  return (
+    <div className="photo-grid">
+      {photos.map((key, i) => (
+        <img key={key} src={screenshots[key]} alt={`${alt} ${i + 1}`} loading="lazy" />
       ))}
     </div>
   );
@@ -65,9 +67,8 @@ function ArrowIcon() {
   );
 }
 
-// Open real links in a new tab; "#" placeholders stay on the page
-const linkProps = (href) =>
-  href && href !== "#" ? { href, target: "_blank", rel: "noreferrer" } : { href: "#" };
+// Only real links get a button (hardware projects have no demo / repo)
+const hasLink = (href) => href && href !== "#";
 
 export default function ProjectCard({ project }) {
   const { t } = useLang();
@@ -88,7 +89,7 @@ export default function ProjectCard({ project }) {
       style={{ scale }}
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 1.2, ease: appleEase }}
     >
       <div className="project-card__visual">
@@ -96,18 +97,25 @@ export default function ProjectCard({ project }) {
           className="project-card__glow"
           style={{ background: `radial-gradient(circle at 50% 110%, ${project.accent}, transparent 60%)` }}
         />
-        <motion.div className="project-card__mock" style={{ y: visualY }}>
-          {project.mock === "browser" ? (
-            <LaptopMock
-              src={screenshots[project.screenshot]}
-              url={project.url}
-              alt={`${t(project.title)} preview`}
-              tilt={tilt}
-            />
-          ) : (
-            <MobileMock accent={project.accent} />
-          )}
-        </motion.div>
+        {project.mock === "photos" ? (
+          <PhotoGrid photos={project.photos} alt={t(project.title)} />
+        ) : (
+          <motion.div
+            className={`project-card__mock project-card__mock--${project.mock}`}
+            style={{ y: visualY }}
+          >
+            {project.mock === "browser" ? (
+              <LaptopMock
+                src={screenshots[project.screenshot]}
+                url={project.url}
+                alt={`${t(project.title)} preview`}
+                tilt={tilt}
+              />
+            ) : (
+              <PhoneMock src={screenshots[project.screenshot]} alt={`${t(project.title)} preview`} />
+            )}
+          </motion.div>
+        )}
       </div>
 
       <div className="project-card__content">
@@ -130,14 +138,20 @@ export default function ProjectCard({ project }) {
               </li>
             ))}
           </ul>
-          <div className="project-card__links">
-            <a {...linkProps(project.demo)} className="btn btn--solid">
-              {t(ui.projects.demo)} <ArrowIcon />
-            </a>
-            <a {...linkProps(project.github)} className="btn btn--outline">
-              GitHub <ArrowIcon />
-            </a>
-          </div>
+          {(hasLink(project.demo) || hasLink(project.github)) && (
+            <div className="project-card__links">
+              {hasLink(project.demo) && (
+                <a href={project.demo} target="_blank" rel="noreferrer" className="btn btn--solid">
+                  {t(ui.projects.demo)} <ArrowIcon />
+                </a>
+              )}
+              {hasLink(project.github) && (
+                <a href={project.github} target="_blank" rel="noreferrer" className="btn btn--outline">
+                  GitHub <ArrowIcon />
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </motion.article>

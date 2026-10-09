@@ -1,13 +1,13 @@
 .projects__list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(40px, 6vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
 }
 
 /* ===== Card ===== */
 .project-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 520px;
+  aspect-ratio: 16 / 11;
   overflow: hidden;
   background: #050505;
 }
@@ -46,7 +46,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding-block: 40px;
+  padding-block: 28px;
   transition: scale 0.7s var(--ease-apple);
 }
 
@@ -56,17 +56,18 @@
 
 .project-card__content {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  gap: 40px;
-  padding: clamp(32px, 4vw, 52px);
+  gap: 28px;
+  padding: clamp(24px, 3vw, 36px);
 }
 
 .project-card__meta {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-2);
@@ -85,8 +86,8 @@
 }
 
 .project-card__title {
-  margin-bottom: 20px;
-  font-size: clamp(36px, 4.4vw, 56px);
+  margin-bottom: 14px;
+  font-size: clamp(26px, 2.6vw, 34px);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.035em;
@@ -98,8 +99,7 @@ html:lang(th) .project-card__title {
 }
 
 .project-card__desc {
-  max-width: 440px;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--text-2);
 }
@@ -108,7 +108,10 @@ html:lang(th) .project-card__title {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 28px;
+}
+
+.project-card__stack + .project-card__links {
+  margin-top: 24px;
 }
 
 .project-card__stack li {
@@ -137,16 +140,6 @@ html:lang(th) .project-card__title {
 }
 
 /* ===== Mockups ===== */
-.mock-line {
-  height: 10px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.mock-line--dim {
-  background: rgba(255, 255, 255, 0.1);
-}
-
 /* Laptop + browser mockup with a real screenshot */
 .laptop {
   width: 88%;
@@ -256,44 +249,65 @@ html:lang(th) .project-card__title {
   object-position: top;
 }
 
-.mock-phone {
-  width: 38%;
-  min-width: 150px;
-  height: 88%;
-  padding: 12px;
-  border-radius: 32px;
-  border: 4px solid #262626;
-  background: #171717;
-  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.7);
+/* Phone with a real screenshot — taller than the visual, so the bottom is cropped */
+.project-card__mock--phone {
+  align-items: flex-start;
+  padding-block: 32px 0;
 }
 
-.mock-phone__notch {
-  width: 48px;
-  height: 6px;
-  margin: 0 auto 12px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.2);
+.phone {
+  position: relative;
+  width: 46%;
+  aspect-ratio: 381 / 825;
+  flex-shrink: 0;
+  padding: 7px;
+  border-radius: 40px;
+  background: #0d0d0d;
+  box-shadow: 0 0 0 1.5px #3a3a3c, 0 40px 80px -20px rgba(0, 0, 0, 0.8);
 }
 
-.mock-phone__card {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+.phone__island {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  z-index: 1;
+  width: 28%;
+  height: 16px;
+  border-radius: 10px;
+  background: #0d0d0d;
+  transform: translateX(-50%);
 }
 
-.mock-phone__img {
-  height: 48px;
-  margin-bottom: 8px;
-  border-radius: 8px;
+.phone__shot {
+  width: 100%;
+  height: 100%;
+  border-radius: 33px;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Hardware photos: big one left, two stacked right */
+.photo-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-grid img:first-child {
+  grid-row: span 2;
 }
 
 @media (max-width: 900px) {
-  .project-card {
+  .projects__list {
     grid-template-columns: 1fr;
-  }
-  .project-card__visual {
-    min-height: 0;
-    aspect-ratio: 4 / 3;
   }
 }

@@ -115,6 +115,21 @@ html:lang(th) .timeline__body h3 {
   background: currentColor;
 }
 
+.timeline__photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.timeline__photos img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  object-fit: cover;
+  background: var(--bg-alt);
+}
+
 @media (max-width: 760px) {
   .timeline {
     --rail: 0px;

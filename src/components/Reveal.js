@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const appleEase = [0.16, 1, 0.3, 1];
 
 // Reusable Apple-style scroll reveal: fades in and slowly slides up into place
-// the first time the element enters the viewport.
+// every time the element enters the viewport (scrolling down or back up).
 export default function Reveal({
   children,
   as = "div",
@@ -20,7 +20,7 @@ export default function Reveal({
     <MotionTag
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount }}
+      viewport={{ once: false, amount }}
       transition={{ duration, delay, ease: appleEase }}
       className={className}
       {...rest}

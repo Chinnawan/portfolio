@@ -73,6 +73,7 @@ export const skillGroups = [
       { name: "C / C++", icon: "cpp" },
       { name: "Java", icon: "java" },
       { name: "JavaScript", icon: "javascript" },
+      { name: "TypeScript", icon: "typescript" },
       { name: "Dart", icon: "dart" },
       { name: "HTML", icon: "html" },
       { name: "CSS", icon: "css" },
@@ -83,6 +84,7 @@ export const skillGroups = [
     title: "Frameworks & Libraries",
     items: [
       { name: "React", icon: "react" },
+      { name: "Next.js", icon: "nextjs" },
       { name: "Node.js", icon: "nodejs" },
       { name: "Flutter", icon: "flutter" },
       { name: "Tailwind CSS", icon: "tailwind" },
@@ -103,7 +105,10 @@ export const skillGroups = [
       { name: "Git", icon: "git" },
       { name: "GitHub", icon: "github" },
       { name: "VS Code", icon: "vscode" },
+      { name: "Docker", icon: "docker" },
       { name: "Figma", icon: "figma" },
+      { name: "EasyEDA", icon: "easyeda" },
+      { name: "QA / Manual Testing", icon: "qa" },
     ],
   },
   {
@@ -111,6 +116,9 @@ export const skillGroups = [
     items: [
       { name: "ESP32", icon: "esp32" },
       { name: "Arduino", icon: "arduino" },
+      { name: "PCB Design & Etching", icon: "pcb" },
+      { name: "Soldering & Circuit Assembly", icon: "soldering" },
+      { name: "Transformer Winding", icon: "coil" },
       { name: "Machine Learning & Deep Learning", icon: "ml" },
       { name: "Data Structures & Algorithms", icon: "dsa" },
       { name: "OOP", icon: "oop" },
@@ -123,6 +131,7 @@ export const skillGroups = [
       { name: "Photoshop", icon: "photoshop" },
       { name: "Video Editing", icon: "video" },
       { name: "Photography", icon: "camera" },
+      { name: "Live Streaming & Camera", icon: "live" },
     ],
   },
 ];
@@ -168,18 +177,100 @@ export const projects = [
       { name: "Firebase", icon: "firebase" },
     ],
     accent: "#f97316",
-    mock: "mobile",
-    github: "#",
-    demo: "#",
+    mock: "phone",
+    screenshot: "carhub",
+    github: "https://github.com/Chinnawan/car",
+    demo: "#", // → "https://flutterapp-346ef.web.app/" once deployed to Firebase Hosting
+  },
+  {
+    id: "power-supply",
+    index: "03",
+    title: { en: "AC 220V to DC 12V Power Supply", th: "หม้อแปลง AC 220V เป็น DC 12V" },
+    type: { en: "Hardware / Electronics", th: "ฮาร์ดแวร์ / อิเล็กทรอนิกส์" },
+    description: {
+      en: "A working AC 220V to DC 12V power supply built from scratch — hand-wound transformer coils, components soldered onto the controller board, and everything assembled into a finished, usable enclosure.",
+      th: "หม้อแปลงไฟ AC 220V เป็น DC 12V ที่ทำเองทั้งหมด ตั้งแต่พันขดลวดหม้อแปลง บัดกรีอุปกรณ์ต่างๆ ลงบอร์ดคอนโทรลเลอร์ ไปจนถึงประกอบเป็นกล่องหม้อแปลงที่ใช้งานได้จริง",
+    },
+    stack: [
+      { name: "Transformer Winding", icon: "coil" },
+      { name: "Soldering", icon: "soldering" },
+      { name: "Circuit Assembly", icon: "circuit" },
+    ],
+    accent: "#eab308",
+    mock: "photos",
+    photos: ["transformerBoard", "transformerBox", "transformerCoil"],
+  },
+  {
+    id: "pcb",
+    index: "04",
+    title: { en: "Custom Microcontroller PCB", th: "บอร์ด PCB สำหรับไมโครคอนโทรลเลอร์" },
+    type: { en: "Hardware / PCB Design", th: "ฮาร์ดแวร์ / ออกแบบ PCB" },
+    description: {
+      en: "A PCB for Arduino, ESP32 and other microcontrollers. Laid out in EasyEDA, then etched and soldered by hand.",
+      th: "บอร์ด PCB สำหรับใช้กับ Arduino, ESP32 หรือไมโครคอนโทรลเลอร์ทั่วไป ออกแบบการวางอุปกรณ์ด้วยโปรแกรม EasyEDA กัดลายบอร์ดเอง และบัดกรีอุปกรณ์เอง",
+    },
+    stack: [
+      { name: "EasyEDA", icon: "easyeda" },
+      { name: "Arduino", icon: "arduino" },
+      { name: "ESP32", icon: "esp32" },
+      { name: "PCB Etching", icon: "circuit" },
+      { name: "Soldering", icon: "soldering" },
+    ],
+    accent: "#3b82f6",
+    mock: "photos",
+    photos: ["pcbBoard", "pcbDesign", "pcbEtching"],
   },
 ];
 
+// `photos` use keys from journeyPhotos in data/icons.js
 export const timeline = [
+  {
+    kind: "Experience",
+    title: "Part-Time — QA Tester",
+    place: "EXPOPASS",
+    period: { en: "2026 · 2 months", th: "2569 · 2 เดือน" },
+    points: {
+      en: [
+        "Tested the company's event-registration website for bugs and problems in the user registration flow.",
+        "Checked that event details on the site — event name, venue and dates — matched the real events.",
+      ],
+      th: [
+        "ตรวจสอบเว็บไซต์ลงทะเบียนงานอีเวนต์ของบริษัท ว่ามี Bug หรือปัญหาในการลงทะเบียนฝั่งผู้ใช้หรือไม่",
+        "ตรวจสอบข้อมูลที่แสดงบนเว็บ เช่น ชื่องาน สถานที่จัด และวันที่จัด ว่าตรงกับงานอีเวนต์จริงหรือไม่",
+      ],
+    },
+    photos: ["expopass1"],
+  },
+  {
+    kind: "Experience",
+    title: "Part-Time — Page Admin & Live Camera Operator",
+    place: { en: "Sabai Sabai Karaoke Boxing Stadium, Pathum Thani", th: "ค่ายมวยสบายสบาย คาราโอเกะ ปทุมธานี" },
+    period: { en: "2025", th: "2568" },
+    points: {
+      en: [
+        "Page admin: ran the page throughout every live stream and put up on-screen graphics — fighter names, round and fight time — for viewers.",
+        "Camera operator: zoomed in and out with the action so viewers could see the fighters clearly.",
+      ],
+      th: [
+        "Admin เพจ: ควบคุมดูแลเพจตลอดการไลฟ์สตรีม และขึ้น CG ชื่อนักมวย ยกที่ต่อย และเวลาที่ต่อยให้ผู้ชมเห็น",
+        "ตากล้อง: ซูมเข้า-ออกตามจังหวะการต่อย เพื่อให้ผู้ชมเห็นนักมวยได้คมชัดเต็มตามากขึ้น",
+      ],
+    },
+    photos: ["sabai1", "sabai2", "sabai3"],
+  },
+  // HDTV internship came before KMUTNB
+  {
+    kind: "Education",
+    title: "Electronics Engineering Technology - Computer",
+    place: "King Mongkut's University of Technology North Bangkok (KMUTNB)",
+    period: "Year 4 · Present",
+  },
   {
     kind: "Experience",
     title: "Intern — HDTV Production",
     place: "HDTV Production",
-    period: "Internship",
+    period: { en: "2022 · 2 months", th: "2565 · 2 เดือน" },
+    photos: ["hdtv1", "hdtv2", "hdtv3"],
     points: {
       en: [
         "Managed props and behind-the-scenes operations in the studio.",
@@ -192,12 +283,6 @@ export const timeline = [
         "ตัดต่อคลิป Highlight MV เพลงด้วย Adobe Premiere Pro",
       ],
     },
-  },
-  {
-    kind: "Education",
-    title: "Electronics Engineering Technology - Computer",
-    place: "King Mongkut's University of Technology North Bangkok (KMUTNB)",
-    period: "Year 4 · Present",
   },
   {
     kind: "Education",

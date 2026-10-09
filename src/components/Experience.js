@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { motion, useScroll } from "framer-motion";
 import { useLang } from "../context/LanguageContext";
 import { timeline, ui } from "../data/portfolio";
+import { journeyPhotos } from "../data/icons";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import "./Experience.css";
@@ -41,6 +42,18 @@ export default function Experience() {
                         <li key={p}>{p}</li>
                       ))}
                     </ul>
+                  )}
+                  {item.photos && (
+                    <div className="timeline__photos">
+                      {item.photos.map((key, n) => (
+                        <img
+                          key={key}
+                          src={journeyPhotos[key]}
+                          alt={`${t(item.place)} ${n + 1}`}
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
                   )}
                 </div>
               </Reveal>

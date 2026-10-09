@@ -41,7 +41,7 @@ export default function Skills() {
                 variants={list}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: false, amount: 0.3 }}
               >
                 {group.items.map((skill) => (
                   <motion.li key={t(skill.name)} variants={item} className="skills__item">
