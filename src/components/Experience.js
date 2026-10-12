@@ -5,6 +5,7 @@ import { timeline, ui } from "../data/portfolio";
 import { journeyPhotos } from "../data/icons";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
+import Carousel from "./Carousel";
 import "./Experience.css";
 
 export default function Experience() {
@@ -44,16 +45,11 @@ export default function Experience() {
                     </ul>
                   )}
                   {item.photos && (
-                    <div className="timeline__photos">
-                      {item.photos.map((key, n) => (
-                        <img
-                          key={key}
-                          src={journeyPhotos[key]}
-                          alt={`${t(item.place)} ${n + 1}`}
-                          loading="lazy"
-                        />
-                      ))}
-                    </div>
+                    <Carousel
+                      className="timeline__photos"
+                      images={item.photos.map((key) => journeyPhotos[key])}
+                      alt={t(item.place)}
+                    />
                   )}
                 </div>
               </Reveal>

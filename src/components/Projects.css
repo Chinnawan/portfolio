@@ -247,21 +247,23 @@ html:lang(th) .project-card__title {
   aspect-ratio: 16 / 9.1;
   object-fit: cover;
   object-position: top;
+  cursor: zoom-in;
 }
 
 /* Phone with a real screenshot — taller than the visual, so the bottom is cropped */
+/* padding and width are both % of the card width, so ~70% of the screen shows at any size */
 .project-card__mock--phone {
   align-items: flex-start;
-  padding-block: 32px 0;
+  padding-block: 6% 0;
 }
 
 .phone {
   position: relative;
-  width: 46%;
+  width: 41%;
   aspect-ratio: 381 / 825;
   flex-shrink: 0;
-  padding: 7px;
-  border-radius: 40px;
+  padding: 6px;
+  border-radius: 26px;
   background: #0d0d0d;
   box-shadow: 0 0 0 1.5px #3a3a3c, 0 40px 80px -20px rgba(0, 0, 0, 0.8);
 }
@@ -281,29 +283,34 @@ html:lang(th) .project-card__title {
 .phone__shot {
   width: 100%;
   height: 100%;
-  border-radius: 33px;
+  border-radius: 20px;
   object-fit: cover;
+  cursor: zoom-in;
   object-position: top;
 }
 
-/* Hardware photos: big one left, two stacked right */
-.photo-grid {
+/* Hardware photos: one full photo at a time, swipe or < > to change */
+.project-card__photos,
+.project-card__photos .carousel__track {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 4px;
 }
 
-.photo-grid img {
-  width: 100%;
+.project-card__photos .carousel__slide {
   height: 100%;
-  object-fit: cover;
 }
 
-.photo-grid img:first-child {
-  grid-row: span 2;
+.project-card__photos .carousel__dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  padding: 6px 9px;
+  border-radius: 980px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transform: translateX(-50%);
 }
 
 @media (max-width: 900px) {

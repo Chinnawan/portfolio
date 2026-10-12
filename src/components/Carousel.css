@@ -1,0 +1,91 @@
+.carousel {
+  position: relative;
+}
+
+.carousel__track {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  object-fit: cover;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  cursor: zoom-in;
+  user-select: none;
+}
+
+/* < > buttons: only on devices with a mouse, shown while hovering */
+.carousel__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(20, 20, 22, 0.55);
+  color: #fff;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(-50%) scale(0.9);
+  transition: opacity 0.3s, transform 0.3s var(--ease-apple), background-color 0.3s;
+}
+
+.carousel__arrow:hover {
+  background: rgba(20, 20, 22, 0.8);
+}
+
+.carousel__arrow--prev {
+  left: 14px;
+}
+
+.carousel__arrow--next {
+  right: 14px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .carousel__arrow {
+    display: grid;
+  }
+  .carousel:hover .carousel__arrow,
+  .carousel__arrow:focus-visible {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+/* Photo count */
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.carousel__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border-radius: 980px;
+  background: currentColor;
+  opacity: 0.4;
+  transition: width 0.4s var(--ease-apple), opacity 0.3s;
+}
+
+.carousel__dot.is-active {
+  width: 18px;
+  opacity: 1;
+}

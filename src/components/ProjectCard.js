@@ -1,14 +1,16 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { appleEase } from "./Reveal";
+import { appleEase, useReveal } from "./Reveal";
 import Icon from "./Icon";
+import Carousel from "./Carousel";
+import Lightbox from "./Lightbox";
 import { useLang } from "../context/LanguageContext";
 import { ui } from "../data/portfolio";
 import { stackIcons, screenshots } from "../data/icons";
 
 // MacBook-style laptop showing a real screenshot inside a browser window.
 // The screen "opens" (tilts up) as the card scrolls into view, like Apple's pages.
-function LaptopMock({ src, url, alt, tilt }) {
+function LaptopMock({ src, url, alt, tilt, onOpen }) {
   return (
     <div className="laptop">
       <motion.div className="laptop__lid" style={{ rotateX: tilt }}>
@@ -28,7 +30,7 @@ function LaptopMock({ src, url, alt, tilt }) {
                 {url}
               </span>
             </div>
-            <img src={src} alt={alt} className="browser__shot" />
+            <img src={src} alt={alt} className="browser__shot" onClick={onOpen} />
           </div>
         </div>
       </motion.div>
@@ -38,23 +40,12 @@ function LaptopMock({ src, url, alt, tilt }) {
 }
 
 // Phone showing a real app screenshot. It's taller than the visual area, so only
-// the top ~60% shows — the phone fills the column instead of floating small.
-function PhoneMock({ src, alt }) {
+// the top ~70% shows — the phone fills the column instead of floating small.
+function PhoneMock({ src, alt, onOpen }) {
   return (
     <div className="phone">
       <div className="phone__island" />
-      <img src={src} alt={alt} className="phone__shot" />
-    </div>
-  );
-}
-
-// Hardware projects: one big photo on the left, two stacked on the right
-function PhotoGrid({ photos, alt }) {
-  return (
-    <div className="photo-grid">
-      {photos.map((key, i) => (
-        <img key={key} src={screenshots[key]} alt={`${alt} ${i + 1}`} loading="lazy" />
-      ))}
+      <img src={src} alt={alt} className="phone__shot" onClick={onOpen} />
     </div>
   );
 }
@@ -72,7 +63,9 @@ const hasLink = (href) => href && href !== "#";
 
 export default function ProjectCard({ project }) {
   const { t } = useLang();
-  const ref = useRef(null);
+  const [ref, shown] = useReveal(0.2);
+  const [preview, setPreview] = useState(null);
+  const openPreview = () => setPreview(0);
   // Card grows from 0.9 → 1 as it scrolls into view (like Apple product tiles)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -88,8 +81,7 @@ export default function ProjectCard({ project }) {
       className="project-card"
       style={{ scale }}
       initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.2 }}
+      animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
       transition={{ duration: 1.2, ease: appleEase }}
     >
       <div className="project-card__visual">
@@ -98,7 +90,11 @@ export default function ProjectCard({ project }) {
           style={{ background: `radial-gradient(circle at 50% 110%, ${project.accent}, transparent 60%)` }}
         />
         {project.mock === "photos" ? (
-          <PhotoGrid photos={project.photos} alt={t(project.title)} />
+          <Carousel
+            className="project-card__photos"
+            images={project.photos.map((key) => screenshots[key])}
+            alt={t(project.title)}
+          />
         ) : (
           <motion.div
             className={`project-card__mock project-card__mock--${project.mock}`}
@@ -110,11 +106,24 @@ export default function ProjectCard({ project }) {
                 url={project.url}
                 alt={`${t(project.title)} preview`}
                 tilt={tilt}
+                onOpen={openPreview}
               />
             ) : (
-              <PhoneMock src={screenshots[project.screenshot]} alt={`${t(project.title)} preview`} />
+              <PhoneMock
+                src={screenshots[project.screenshot]}
+                alt={`${t(project.title)} preview`}
+                onOpen={openPreview}
+              />
             )}
           </motion.div>
+        )}
+        {project.screenshot && (
+          <Lightbox
+            images={[screenshots[project.screenshot]]}
+            alt={t(project.title)}
+            index={preview}
+            onClose={() => setPreview(null)}
+          />
         )}
       </div>
 

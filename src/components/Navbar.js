@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { appleEase } from "./Reveal";
 import { useLang } from "../context/LanguageContext";
@@ -29,22 +29,65 @@ export default function Navbar({ theme, onToggleTheme }) {
   const { lang, toggleLang, t } = useLang();
   const [active, setActive] = useState("home");
 
-  // Highlight the section currently in the middle of the viewport
+  // While a nav click is smooth-scrolling, hold the clicked tab instead of
+  // flicking through every section the page passes on the way
+  const lockRef = useRef(false);
+  const unlockTimer = useRef(0);
+
+  // Highlight the last section whose top has passed the middle of the screen.
+  // Read straight from scroll position so there are no gaps between sections.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: "-45% 0px -45% 0px" }
-    );
-    navIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (lockRef.current) return;
+      const line = window.innerHeight * 0.45;
+      let current = navIds[0];
+      navIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      });
+      // Contact is short and may never reach the middle line
+      const doc = document.documentElement;
+      if (window.innerHeight + window.scrollY >= doc.scrollHeight - 4) current = navIds[navIds.length - 1];
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (lockRef.current) {
+        // Release the lock once scrolling has settled
+        clearTimeout(unlockTimer.current);
+        unlockTimer.current = setTimeout(() => {
+          lockRef.current = false;
+          update();
+        }, 150);
+      }
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+      clearTimeout(unlockTimer.current);
+    };
   }, []);
+
+  const handleNavClick = (id) => {
+    lockRef.current = true;
+    setActive(id);
+    // Fallback in case the page is already there and no scroll happens
+    clearTimeout(unlockTimer.current);
+    unlockTimer.current = setTimeout(() => {
+      lockRef.current = false;
+    }, 1000);
+  };
 
   return (
     <motion.nav
       className="navbar"
+      layoutRoot
       initial={{ opacity: 0, y: 40, x: "-50%" }}
       animate={{ opacity: 1, y: 0, x: "-50%" }}
       transition={{ duration: 1, delay: 1.2, ease: appleEase }}
@@ -54,13 +97,14 @@ export default function Navbar({ theme, onToggleTheme }) {
           <a
             key={id}
             href={`#${id}`}
+            onClick={() => handleNavClick(id)}
             className={`navbar__link ${active === id ? "is-active" : ""}`}
           >
             {active === id && (
               <motion.span
                 layoutId="nav-active"
                 className="navbar__indicator"
-                transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                transition={{ type: "spring", stiffness: 380, damping: 36, mass: 0.8 }}
               />
             )}
             <span className="navbar__label">{t(ui.nav[id])}</span>

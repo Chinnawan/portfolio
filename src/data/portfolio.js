@@ -198,7 +198,7 @@ export const projects = [
     ],
     accent: "#eab308",
     mock: "photos",
-    photos: ["transformerBoard", "transformerBox", "transformerCoil"],
+    photos: ["transformerBox", "transformerBoard", "transformerCoil"],
   },
   {
     id: "pcb",
