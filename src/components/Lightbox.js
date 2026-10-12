@@ -13,6 +13,7 @@ export function Chevron({ dir }) {
 }
 
 function Viewer({ images, alt, start, onClose }) {
+  const dialogRef = useRef(null);
   const trackRef = useRef(null);
   const thumbsRef = useRef(null);
   const [index, setIndex] = useState(start);
@@ -38,10 +39,15 @@ function Viewer({ images, alt, start, onClose }) {
     const root = document.documentElement;
     const prevOverflow = root.style.overflow;
     root.style.overflow = "hidden";
+    // Take focus so the keys aren't handled by the page or the photo track first
+    dialogRef.current.focus({ preventScroll: true });
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowRight") goTo(current() + 1);
-      else if (e.key === "ArrowLeft") goTo(current() - 1);
+      else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        // Stop the browser's own arrow-key scrolling / text caret
+        e.preventDefault();
+        goTo(current() + (e.key === "ArrowRight" ? 1 : -1));
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => {
@@ -59,9 +65,11 @@ function Viewer({ images, alt, start, onClose }) {
 
   return (
     <motion.div
+      ref={dialogRef}
       className="lightbox"
       role="dialog"
       aria-modal="true"
+      tabIndex={-1}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -80,7 +88,7 @@ function Viewer({ images, alt, start, onClose }) {
         exit={{ scale: 0.94 }}
         transition={{ duration: 0.45, ease: appleEase }}
       >
-        <div ref={trackRef} className="lightbox__track" onScroll={() => setIndex(current())}>
+        <div ref={trackRef} className="lightbox__track" tabIndex={-1} onScroll={() => setIndex(current())}>
           {images.map((src, i) => (
             // Clicking the empty space around a photo closes the preview
             <div key={src} className="lightbox__slide" onClick={onClose}>

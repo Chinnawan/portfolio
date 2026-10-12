@@ -9,6 +9,9 @@
   background: rgba(0, 0, 0, 0.55);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
   backdrop-filter: blur(24px) saturate(140%);
+  outline: none;
+  caret-color: transparent;
+  user-select: none;
 }
 
 .lightbox__close {
@@ -44,6 +47,7 @@
   scroll-snap-type: x mandatory;
   overscroll-behavior: contain;
   scrollbar-width: none;
+  outline: none;
 }
 
 .lightbox__track::-webkit-scrollbar {
