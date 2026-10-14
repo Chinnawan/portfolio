@@ -1,6 +1,6 @@
 # Chinnawan Sriprasong — Portfolio
 
-Personal portfolio website built with **React, HTML, CSS** and **Framer Motion** (Apple-style scroll animations).
+Personal portfolio website built with **React, HTML, CSS** and **Framer Motion**.
 Bilingual (TH / EN) with dark & light themes.
 
 ## Run locally
