@@ -155,11 +155,11 @@ export const projects = [
   {
     id: "car-rental",
     index: "02",
-    title: "Car Rental App",
+    title: "Car Trading App",
     type: "Mobile Application",
     description: {
-      en: "A mobile app for finding and renting cars, featuring detailed vehicle info, real-time rental status, and a renter management system.",
-      th: "แอปพลิเคชันบนมือถือสำหรับค้นหาและเช่ารถยนต์ มีฟีเจอร์แสดงรายละเอียดรถ สถานะการเช่า และระบบจัดการข้อมูลผู้เช่า",
+      en: "A car trading app that shows detailed info and photos of each car before purchase. Customers place a simulated deposit payment, then track their order status and car pickup. Includes an admin menu for managing cars and order statuses.",
+      th: "แอปซื้อขายรถยนต์ แสดงรายละเอียดและรูปภาพรถยนต์ก่อนซื้อขาย มีการจำลองการโอนมัดจำค่ารถ แสดงสถานะการซื้อขายและการรับรถของลูกค้า พร้อมเมนูสำหรับ admin ในการจัดการสถานะต่างๆ",
     },
     stack: [
       { name: "Flutter", icon: "flutter" },
