@@ -70,25 +70,20 @@ export const skillGroups = [
     title: "Languages",
     items: [
       { name: "Python", icon: "python" },
-      { name: "C / C++", icon: "cpp" },
+      { name: "C", icon: "cpp" },
       { name: "Java", icon: "java" },
       { name: "JavaScript", icon: "javascript" },
-      { name: "TypeScript", icon: "typescript" },
       { name: "Dart", icon: "dart" },
       { name: "HTML", icon: "html" },
       { name: "CSS", icon: "css" },
-      { name: "MATLAB", icon: "matlab" },
     ],
   },
   {
     title: "Frameworks & Libraries",
     items: [
       { name: "React", icon: "react" },
-      { name: "Next.js", icon: "nextjs" },
       { name: "Node.js", icon: "nodejs" },
       { name: "Flutter", icon: "flutter" },
-      { name: "Tailwind CSS", icon: "tailwind" },
-      { name: "OpenCV", icon: "opencv" },
     ],
   },
   {
@@ -106,7 +101,6 @@ export const skillGroups = [
       { name: "GitHub", icon: "github" },
       { name: "VS Code", icon: "vscode" },
       { name: "Docker", icon: "docker" },
-      { name: "Figma", icon: "figma" },
       { name: "EasyEDA", icon: "easyeda" },
       { name: "QA / Manual Testing", icon: "qa" },
     ],
@@ -115,13 +109,9 @@ export const skillGroups = [
     title: "Hardware & Core",
     items: [
       { name: "ESP32", icon: "esp32" },
-      { name: "Arduino", icon: "arduino" },
       { name: "PCB Design & Etching", icon: "pcb" },
       { name: "Soldering & Circuit Assembly", icon: "soldering" },
       { name: "Transformer Winding", icon: "coil" },
-      { name: "Machine Learning & Deep Learning", icon: "ml" },
-      { name: "Data Structures & Algorithms", icon: "dsa" },
-      { name: "OOP", icon: "oop" },
     ],
   },
   {

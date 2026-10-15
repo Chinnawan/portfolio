@@ -113,7 +113,8 @@ export default function Navbar({ theme, onToggleTheme }) {
 
         <span className="navbar__divider" />
 
-        {/* Shows the current language; one click switches the whole site */}
+        {/* Language switch hidden — site is EN only */}
+        {false && (
         <button
           onClick={toggleLang}
           className="navbar__btn navbar__lang"
@@ -129,6 +130,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             {lang === "th" ? "TH" : "EN"}
           </motion.span>
         </button>
+        )}
 
         <button
           onClick={onToggleTheme}
